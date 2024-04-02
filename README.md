@@ -48,11 +48,82 @@ El circuito lógico queda de la siguiente manera:
   <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/935a8018-f8b5-4738-b3b4-fa8ad1ecb076" alt="Tabla de verdad" width="800"/>
 </p>
 
+A partir del circuito lógico, se hizo uso del software CODESYS para la simulación de un controlador lógico programable (PLC) del proceso de monitoreo del tanque con líquido químico. Para la programación del controlador PLC se hizo uso del lenguaje ladder. Este lenguaje permite la adaptación del circuito lógico [3] para realizar la simulación junto con su HMI.
+
+El diagrama de escalera o diagrama ladder representa las entradas necesarias para adaptar el circuito de la siguiente manera:
+
+<p align="center">
+    <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/6e7d164b-1f30-4383-8867-e859c2ac5c06" alt="Entradas ladder" width="350"/>
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/648174d8-4509-4bb4-b34c-9e4f61ca62e6" alt="Salida ladder" width="100"/>
+</p>
+La primera entrada es un contacto normalmente abierto que representa una la entrada de un sensor, la segunda entrada es un contacto normalmente cerrado que representa una entrada negada de un sensor en el circuito lógico, y la salida representa las luces del sistema de monitoreo [3].
+
+Adicionalmente, para representar las compuertas lógicas, se tienen las siguientes configuraciones [3]:
+
+- Compuerta AND: Las entradas se deben posicionar en serie.
+- Compuerta OR: Las entradas se deben posicionar en paralelo.
+
+Teniendo en cuenta estos estándares junto con el circuito lógico, se crearon las siguientes variables de entrada y salida booleana para todos los los sensores y luces. Con las variables establecidad, se diseño el correspondiente diagrama ladder:
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/2a8023ec-1dd5-48a8-9b4c-9dbfdbac1b20" alt="Variables del sistema" width="195"/>
+    <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/cdf9ddad-cb95-40db-b744-d213363d4de8" alt="Diagrama ladder" width="600"/>
+</p>
+
+Para la interfaz gráfica, se uso un cilindro en el centro representando el tanque y sus diferentes niveles de llenado. Los sensores fueron representados con switches, cada uno con su etiqueta y puestos de forma ascendente. Las luces que representan los estados fueron representados con lamparas de diferente color según la gráfica de referencia. Sin embargo, se cambio el posicionamiento de las luces en la interfaz para tener una mayor comprensión de los estados del sistema. Entonces, el orden de las luces led de manera ascendente es igual a H4, H2, H1, H3 y H5.
+
+El HMI quedó de la siguiente manera:
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/2a7af819-05bd-4cda-b6e2-8a8e250d1ce4" alt="HMI" width="600"/>
+</p>
+
+Ejecutando la simulación observamos la siguiente serie de comportamientos:
+
+- Ningún sensor activo
+  
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/8a856203-7584-4b87-84cc-63812dbae218" alt="HMI H4" width="375"/>
+    <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/484a3b32-c8fb-401e-abd4-7806981353c7" alt="Ladder H4" width="350"/>
+</p>
+
+- Un sensor activo
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/b112b118-822f-493f-84fe-f43a72d4acc4" alt="HMI H2" width="375"/>
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/71e27215-6e76-4f97-9c01-7637c6f0dccd" alt="Ladder H2" width="350"/>
+</p>
+
+- Dos sensores activos
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/00239ef4-4b80-4e0e-8775-e5c29ff4db07" alt="HMI H1" width="375"/>
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/495f8f34-919d-41e9-b471-6452d888490f" alt="Ladder H1" width="350"/>
+</p>
+
+- Tres sensores activos
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/d0d188a6-28ec-472c-8c36-902c2ef87f1d" alt="HMI H3" width="375"/>
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/8aff6964-79fe-4a50-bba8-98667f60427c" alt="Ladder H3" width="350"/>
+</p>
+
+- Solo uno y sensor 3 activo (Error)
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/8524b012-ab11-42b9-8be5-80b3c5cef961" alt="HMI H3" width="375"/>
+  <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/a0b102f2-f476-448b-a4a5-19a7fbeadd0f" alt="Ladder H3" width="350"/>
+</p>
+
+Si comparamos estos comportamientos con la tabla de verdad, podemos observar que los cambios de salida de los respectivos sensores efectivamente corresponden a las diferentes salidas de las distintas luces que se tiene en el sistema de monitoreo. Por lo tanto, la solución simulada satisface la solución de la automatización de este proceso.
+
 ## Referencias 
 
 [1] Las diapositivas del cucho
 
 [2] http://www.32x8.com/index.html
+
+[3] https://bookdown.org/alberto_brunete/intro_automatica/diagrama-de-escalera-kop.html
 
 
 
