@@ -115,7 +115,7 @@ Ejecutando la simulación observamos la siguiente serie de comportamientos:
   <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/a0b102f2-f476-448b-a4a5-19a7fbeadd0f" alt="Ladder H3" width="350"/>
 </p>
 
-Si comparamos estos comportamientos con la tabla de verdad, podemos observar que los cambios de salida de los respectivos sensores efectivamente corresponden a las diferentes salidas de las distintas luces que se tiene en el sistema de monitoreo. Por lo tanto, la solución simulada satisface la solución de la automatización de este proceso.
+Si comparamos estos comportamientos con la tabla de verdad, podemos observar que los cambios de salida de los respectivos sensores efectivamente corresponden a las diferentes salidas de las distintas luces que se tiene en el sistema. Por lo tanto, la solución simulada satisface el requerimento de la automatización del monitoreo del tanque de líquido químico.
 
 ## Referencias 
 
