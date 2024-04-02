@@ -21,7 +21,7 @@ Para esta solución se debe programar un PLC usando lógica Ladder simulando el 
 
 ## Proceso de simulación
 
-Teniendo en cuenta los 3 sensores que van a detectar el nivel de liquido en el tanque y las 5 luces que representan la respuesta de los sensores a partir de los niveles representados previamente, se realizo una tabla de verdad para tener claro, cuales son los comportamientos correctos de las 5 luces dependiendo de las combinaciones de las entradas de los sensores. Se tomo como referencia la siguiente grafica [1]:
+Teniendo en cuenta los 3 sensores que van a detectar el nivel de liquido en el tanque y las 5 luces que representan la respuesta de los sensores a partir de los niveles representados previamente, se realizo una tabla de verdad para tener claro, cuales son los comportamientos correctos de las 5 luces dependiendo de las combinaciones de las entradas de los sensores. Se tomo como referencia la siguiente grafica:
 
 ![Tank level](https://github.com/PixelNote/Workshop-4/assets/81392047/64f5f289-7b81-478c-b175-51a1eb1b0721)
 
@@ -40,7 +40,7 @@ La tabla de verdad queda de la siguiente manera:
 
 Teniendo la tabla de verdad, se realizó el circuito lógico para los diferentes valores de entradas y salida.
 
-Se puede observar en la tabla que, para las primeras 4 luces de salida, solo hay un valor verdadero o un valor booleano de 1. Por lo tanto, se decidió usar un operador lógico AND por cada salida equivalente según sus valores de entrada. Sin embargo, la última luz de salida presenta 4 valores verdaderos, así que realizando un mapa de Karnaugh mediante un simplificador online[2] se obtuvo la combinación igual a S2'S3 + S1'S2. Esto quiere decir que, la entrada del sensor 2 debe estar negada en una compuerta lógica AND junto con la entrada del sensor 3, la entrada del sensor 1 debe estar negada en una compuerta lógica AND junto con la entrada del sensor 2 y la salida de estas dos compuertas lógicas deben entrar a una compuerta lógica OR.
+Se puede observar en la tabla que, para las primeras 4 luces de salida, solo hay un valor verdadero o un valor booleano de 1. Por lo tanto, se decidió usar un operador lógico AND por cada salida equivalente según sus valores de entrada. Sin embargo, la última luz de salida presenta 4 valores verdaderos, así que realizando un mapa de Karnaugh mediante un simplificador online[1] se obtuvo la combinación igual a S2'S3 + S1'S2. Esto quiere decir que, la entrada del sensor 2 debe estar negada en una compuerta lógica AND junto con la entrada del sensor 3, la entrada del sensor 1 debe estar negada en una compuerta lógica AND junto con la entrada del sensor 2 y la salida de estas dos compuertas lógicas deben entrar a una compuerta lógica OR.
 
 El circuito lógico queda de la siguiente manera:
 
@@ -48,7 +48,7 @@ El circuito lógico queda de la siguiente manera:
   <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/935a8018-f8b5-4738-b3b4-fa8ad1ecb076" alt="Tabla de verdad" width="800"/>
 </p>
 
-A partir del circuito lógico, se hizo uso del software CODESYS para la simulación de un controlador lógico programable (PLC) del proceso de monitoreo del tanque con líquido químico. Para la programación del controlador PLC se hizo uso del lenguaje ladder. Este lenguaje permite la adaptación del circuito lógico [3] para realizar la simulación junto con su HMI.
+A partir del circuito lógico, se hizo uso del software CODESYS para la simulación de un controlador lógico programable (PLC) del proceso de monitoreo del tanque con líquido químico. Para la programación del controlador PLC se hizo uso del lenguaje ladder. Este lenguaje permite la adaptación del circuito lógico [2] para realizar la simulación junto con su HMI.
 
 El diagrama de escalera o diagrama ladder representa las entradas necesarias para adaptar el circuito de la siguiente manera:
 
@@ -56,9 +56,9 @@ El diagrama de escalera o diagrama ladder representa las entradas necesarias par
     <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/6e7d164b-1f30-4383-8867-e859c2ac5c06" alt="Entradas ladder" width="350"/>
   <img src="https://github.com/PixelNote/Workshop-4/assets/81392047/648174d8-4509-4bb4-b34c-9e4f61ca62e6" alt="Salida ladder" width="100"/>
 </p>
-La primera entrada es un contacto normalmente abierto que representa una la entrada de un sensor, la segunda entrada es un contacto normalmente cerrado que representa una entrada negada de un sensor en el circuito lógico, y la salida representa las luces del sistema de monitoreo [3].
+La primera entrada es un contacto normalmente abierto que representa una la entrada de un sensor, la segunda entrada es un contacto normalmente cerrado que representa una entrada negada de un sensor en el circuito lógico, y la salida representa las luces del sistema de monitoreo [2].
 
-Adicionalmente, para representar las compuertas lógicas, se tienen las siguientes configuraciones [3]:
+Adicionalmente, para representar las compuertas lógicas, se tienen las siguientes configuraciones [2]:
 
 - Compuerta AND: Las entradas se deben posicionar en serie.
 - Compuerta OR: Las entradas se deben posicionar en paralelo.
@@ -118,8 +118,6 @@ Ejecutando la simulación observamos la siguiente serie de comportamientos:
 Si comparamos estos comportamientos con la tabla de verdad, podemos observar que los cambios de salida de los respectivos sensores efectivamente corresponden a las diferentes salidas de las distintas luces que se tiene en el sistema. Por lo tanto, la solución simulada satisface el requerimento de la automatización del monitoreo del tanque de líquido químico.
 
 ## Referencias 
-
-[1] Las diapositivas del cucho
 
 [2] http://www.32x8.com/index.html
 
