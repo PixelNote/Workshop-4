@@ -12,7 +12,7 @@ En un proceso industrial, se desea monitorear el nivel de un tanque de líquidos
 Existen 3 sensores situados de tal forma que detecten los niveles deseados para su optimización. Además, hay una retroalimentación del nivel del tanque a de 5 luces que representan lo siguiente:
 
 - Error
-- Tanque vació 
+- Tanque vacio
 - Nivel muy alto
 - Nivel correcto
 - Nivel muy bajo
@@ -117,11 +117,57 @@ Ejecutando la simulación observamos la siguiente serie de comportamientos:
 
 Si comparamos estos comportamientos con la tabla de verdad, podemos observar que los cambios de salida de los respectivos sensores efectivamente corresponden a las diferentes salidas de las distintas luces que se tiene en el sistema. Por lo tanto, la solución simulada satisface el requerimento de la automatización del monitoreo del tanque de líquido químico.
 
+Además de la validación del sistema por medio de la simulación del HMI realizada en CodeSys también se decidió realizar la representación del sistema en la vida real por medio de elementos reales. Para esto se utilizó el editor de OpenPLC con el propósito de luego implementar el código ladder en una placa de Arduino Uno.
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/4e7b3167-235a-481e-909d-b2f4b9d6a06c" alt="OpenPlc Ladder" width="375"/>
+</p>
+Como se puede observar en la anterior imagen, el código es exactamente el mismo al que se desarrolló en CodeSys, sin embargo antes de hacer la implementación física las variables a utilizar deben estar correctamente definidas, declarando como tipo BOOL para las entradas (B1, B2, B3) y para las salidas (H1, H2, H3, H3, H5), pero también se requiere establecer los pines que corresponden a la placa de Arduino Uno, tanto salidas y entradas digitales como salidas análogas en base a la guía obtenida en [3].
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/9cbb9b88-1afd-48a8-a7d5-c07d30dbff54" alt="OpenPlc Ladder" width="590"/>
+</p>
+
+La ubicación mencionada en la tabla anterior representa a los pines de la placa Arduino Uno, pero un problema que se encontró fue que no se tenían las suficientes salidas digitales para representar los cinco estados del sistema, afortunadamente el programa de OpenPLC Editor nos otorga la posibilidad de configurar de que manera se quieren utilizar los pines del Arduino al que se va a implementar el código, por esa razón antes de implementar el código se realizó la configuración necesaria para utilizar una salida análoga como salida digital y así encender un led por cada estado:
+
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/39d9ac6c-e95b-4a22-98c1-17983d1ae0a6" alt="OpenPlc Ladder" width="590"/>
+</p>
+
+Ya con todo preparado se procedió a transferir el código a la placa Arduino para empezar el montaje físico del sistema, el cual está formado de tres switches que simulan el nivel de líquido del tanque, los cuales funcionan de manera secuencial, impidiendo que se pueda activar uno sin activar el o los anteriores, lo cual es considerado un error en el sistema. Además de interruptores se instalan cinco leds de diferentes colores para representar los cinco estados, dos de ellos de color rojo representando el tanque vacío y el error, dos de color amarillo representando un nivel bajo y un nivel demasiado alto de agua, y por último un led verde representando un llenado correcto.
+
+- Estado de tanque vacío:
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/6b9b26a4-9856-4ed8-9651-db58472e9451" alt="OpenPlc Ladder" width="590"/>
+</p>
+
+- Estado de tanque muy bajo:
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/394985f5-0011-4ff6-86b9-61a0e711d42c" alt="OpenPlc Ladder" width="590"/>
+</p>
+
+- Estado de tanque correcto:
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/8c52be45-e714-4c46-a1e0-0ad7174173c8" alt="OpenPlc Ladder" width="590"/>
+</p>
+
+- Estado de tanque demasiado lleno:
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/fff9cdfd-757f-4f31-a6f4-cad66febdb19" alt="OpenPlc Ladder" width="590"/>
+</p>
+
+- Estado de error de tanque:
+<p align="center">
+  <img src="https://github.com/PixelNote/Workshop-4/assets/97065279/131b574c-f49d-4268-b26d-0dd683ae2eb2" alt="OpenPlc Ladder" width="590"/>
+</p>
+
+Gracias a la validación por medio de una HMI en CodeSys además de la implementación del sistema con elementos físicos del sistema de monitoreo del tanque se pudo confirmar la posibilidad de un sistema de este estilo por medio de la programación ladder y conocimientos previos de electrónica, ambos conocimientos fueron correctamente adoptados por el equipo de trabajo y como se evidenció, puestos en práctica de la mejor manera logrando una integración entre el software y el hardware realizado con elementos de prototipado rápido, además este proyecto ha abierto posibilidades de proyectos que pueden ser implementados con mayor complejidad y exactitud para desarrollar un sistema que requiera el monitoreo de algún tanque de líquidos.
+
 ## Referencias 
 
-[2] http://www.32x8.com/index.html
+[1] http://www.32x8.com/index.html
 
-[3] https://bookdown.org/alberto_brunete/intro_automatica/diagrama-de-escalera-kop.html
+[2] https://bookdown.org/alberto_brunete/intro_automatica/diagrama-de-escalera-kop.html
+[3] https://autonomylogic.com/docs/2-4-physical-addressing/
 
 
 
